@@ -1,0 +1,21 @@
+# Build
+FROM golang:1.24 as builder
+
+WORKDIR /app
+
+COPY . .
+
+RUN go mod init example.com/m && \
+    go mod tidy && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o webapp
+
+# Runtime
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=builder /app/webapp .
+
+RUN apk --no-cache add ca-certificates
+
+CMD ["./webapp"]
