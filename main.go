@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	println("Starting webserver on http://localhost:8080/")
+	fmt.Println("Starting webserver on http://localhost:8080/")
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("Got %s request for %s\n", r.Method, r.URL.Path)
 		fmt.Fprintln(w, "Hello, DevOps!")
