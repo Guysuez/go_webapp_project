@@ -16,3 +16,6 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file Dockerfile.go_web_app --tag go_web_app:$(date +%s)
+
+    - name: Test the Go App
+      run: docker run -it go_web_app:$(date +%s) go test .
